@@ -1,0 +1,52 @@
+{
+    "feature_names": [
+        "day_of_week",
+        "day_of_month",
+        "month",
+        "quarter",
+        "is_weekend",
+        "price_change",
+        "price_pct_change",
+        "price_volatility_7d",
+        "price_volatility_14d",
+        "sma_7",
+        "sma_14",
+        "sma_30",
+        "ema_7",
+        "ema_14",
+        "volume_change",
+        "volume_sma_7",
+        "price_volume_ratio",
+        "market_cap_change",
+        "market_cap_volatility",
+        "volume_to_market_cap",
+        "price_to_market_cap_ratio",
+        "price_high_low_ratio",
+        "price_lag_1",
+        "volume_lag_1",
+        "price_lag_3",
+        "volume_lag_3",
+        "price_lag_7",
+        "volume_lag_7"
+    ],
+    "n_features": 28,
+    "model_type": "Ensemble Voting Regressor",
+    "models": [
+        "RandomForest",
+        "GradientBoosting",
+        "AdaBoost"
+    ],
+    "weights": [
+        0.4,
+        0.4,
+        0.2
+    ],
+    "test_r2": 0.9532404138725292,
+    "test_rmse": 0.012229743083356856,
+    "test_mae": 0.008402347508776695,
+    "test_mape": 4.804997519479115,
+    "training_samples": 268,
+    "test_samples": 68,
+    "target_coin": "DOGE",
+    "prediction_horizon": "Next day price"
+}
