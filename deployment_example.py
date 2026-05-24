@@ -9,7 +9,10 @@ import numpy as np
 from datetime import datetime
 
 class MemeCoinPricePredictor:
-    def __init__(self, model_dir='meme_coin_prediction_models'):
+     def __init__(self, model_dir=None):
+        # Auto-detect: use folder next to this script
+        if model_dir is None:
+            model_dir = os.path.dirname(os.path.abspath(__file__))
         """Initialize the predictor with saved models"""
         # Load model
         self.model = joblib.load(f'{model_dir}/ensemble_model.pkl')
