@@ -1,0 +1,88 @@
+{
+  "coin": "DOGE",
+  "target": "next_day_close_usd",
+  "task": "regression",
+  "train_period": [
+    "2024-06-24",
+    "2026-01-03"
+  ],
+  "test_period": [
+    "2026-01-04",
+    "2026-05-23"
+  ],
+  "n_features": 42,
+  "feature_columns": [
+    "close",
+    "volume",
+    "daily_return",
+    "volatility_7d",
+    "volatility_30d",
+    "volume_mcap_ratio",
+    "lag_1",
+    "return_lag_1",
+    "lag_2",
+    "return_lag_2",
+    "lag_3",
+    "return_lag_3",
+    "lag_4",
+    "return_lag_4",
+    "lag_5",
+    "return_lag_5",
+    "lag_6",
+    "return_lag_6",
+    "lag_7",
+    "return_lag_7",
+    "sma_7",
+    "sma_14",
+    "sma_30",
+    "ema_12",
+    "ema_26",
+    "macd",
+    "macd_signal",
+    "macd_hist",
+    "rsi_14",
+    "bb_upper",
+    "bb_lower",
+    "bb_width",
+    "bb_pct",
+    "vol_sma_7",
+    "vol_sma_30",
+    "vol_ratio",
+    "price_vs_sma7",
+    "price_vs_sma30",
+    "day_of_week",
+    "month",
+    "quarter",
+    "is_weekend"
+  ],
+  "scaler": "RobustScaler",
+  "ensemble": "VotingRegressor(RF[w=0.6] + GBR[w=0.4])",
+  "best_rf_params": {
+    "bootstrap": true,
+    "max_depth": 20,
+    "max_features": 0.7,
+    "max_samples": 0.7098887171960256,
+    "min_samples_leaf": 3,
+    "min_samples_split": 2,
+    "n_estimators": 426
+  },
+  "test_metrics": {
+    "MAE": 0.00408,
+    "RMSE": 0.005171,
+    "R2": 0.830658,
+    "MAPE": 4.522719
+  },
+  "serialisation": {
+    "python": "3.12.13 (main, Mar  4 2026, 09:23:07) [GCC 11.4.0]",
+    "sklearn": "1.6.1",
+    "joblib": "1.5.3",
+    "numpy": "2.0.2",
+    "pandas": "2.2.2"
+  },
+  "export_date": "2026-05-24 13:38",
+  "artifact_files": {
+    "model": "ensemble_rf_gbr.joblib",
+    "scaler": "scaler.joblib",
+    "features": "feature_columns.joblib"
+  }
+}
