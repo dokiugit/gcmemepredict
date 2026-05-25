@@ -56,7 +56,7 @@ class MemeCoinPricePredictor:
             self.config = json.load(f)
         
         self.feature_names = self.config['feature_names']
-            self.n_features = self.config['n_features']
+        self.n_features = self.config['n_features']
             
         except FileNotFoundError as e:
             print(f"✗ Error: Model files not found in {model_dir}")
