@@ -22,45 +22,40 @@ from typing import Dict, List, Tuple, Optional
 
 
 class MemeCoinPricePredictor:
-    """
-    Production-ready predictor for meme coin prices.
-    
-    Attributes:
-        model: Trained ensemble regression model
-        scaler: Feature scaling transformer
-        config: Model configuration and metadata
-        feature_names: List of required feature names
-    """
-    
-    def __init__(self, model_dir: str = 'meme_coin_prediction_models'):
-        """
-        Initialize the predictor with saved models and scalers.
+    def __init__(self, model_dir='meme_coin_prediction_models'):
+        """Initialize the predictor with saved models"""
+        # Get the absolute path to the model directory
+        import os
         
-        Args:
-            model_dir (str): Directory containing saved models
-        """
-        try:
-            # Load ensemble model
-            self.model = joblib.load(f'{model_dir}/ensemble_model.pkl')
-            print("✓ Ensemble model loaded")
-            
-            # Load individual models (optional, for comparison)
-            self.rf_model = joblib.load(f'{model_dir}/random_forest_model.pkl')
-            self.gb_model = joblib.load(f'{model_dir}/gradient_boosting_model.pkl')
-            self.ab_model = joblib.load(f'{model_dir}/adaboost_model.pkl')
-            print("✓ Individual models loaded")
-            
-            # Load scalers
-            self.scaler = joblib.load(f'{model_dir}/feature_scaler.pkl')
-            self.target_scaler = joblib.load(f'{model_dir}/target_scaler.pkl')
-            print("✓ Scalers loaded")
-            
-            # Load configuration
-            with open(f'{model_dir}/model_config.json', 'r') as f:
-                self.config = json.load(f)
-            print("✓ Configuration loaded")
-            
-            self.feature_names = self.config['feature_names']
+        # Try multiple possible locations
+        possible_paths = [
+            os.path.join(os.getcwd(), model_dir),
+            os.path.join(os.path.dirname(__file__), model_dir),
+            f'/workspaces/gcmemepredict/{model_dir}',
+            model_dir
+        ]
+        
+        model_path = None
+        for path in possible_paths:
+            if os.path.exists(os.path.join(path, 'ensemble_model.pkl')):
+                model_path = path
+                print(f"✓ Found model directory: {path}")
+                break
+        
+        if model_path is None:
+            raise FileNotFoundError(f"Model files not found in any of: {possible_paths}")
+        
+        # Load model
+        self.model = joblib.load(os.path.join(model_path, 'ensemble_model.pkl'))
+        
+        # Load scalers
+        self.scaler = joblib.load(os.path.join(model_path, 'feature_scaler.pkl'))
+        
+        # Load configuration
+        with open(os.path.join(model_path, 'model_config.json')) as f:
+            self.config = json.load(f)
+        
+        self.feature_names = self.config['feature_names']
             self.n_features = self.config['n_features']
             
         except FileNotFoundError as e:
